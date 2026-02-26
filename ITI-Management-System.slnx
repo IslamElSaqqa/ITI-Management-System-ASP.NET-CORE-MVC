@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ITI-Management-System/ITI-Management-System.csproj" />
+  <Project Path="ITIEntities/ITIEntities.csproj" />
+</Solution>
