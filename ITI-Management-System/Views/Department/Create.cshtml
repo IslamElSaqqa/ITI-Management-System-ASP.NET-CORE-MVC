@@ -1,0 +1,31 @@
+﻿@using ITIEntities
+@model Department
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Index</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+        <form  asp-action="create" asp-controller="department">
+
+            <label asp-for="DeptId">Department ID: </label>
+            <input asp-for="DeptId" type="text"/> <br />
+            
+            <label asp-for="DeptName">Department Name: </label>
+            <input asp-for="DeptName" type="text" /> <br />
+
+            <label asp-for="Capacity">Capacity: </label>
+            <input asp-for="Capacity" type="text" /> <br />
+
+            <input type="submit" class="btn btn-primary" value="Create" />
+        </form>
+
+</body>
+</html>
+

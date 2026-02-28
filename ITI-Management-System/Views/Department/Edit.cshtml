@@ -1,0 +1,27 @@
+﻿@using ITIEntities
+@model Department
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit Department</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <form method="post">
+        <label asp-for="DeptName">Department Name: </label>
+        <input asp-for="DeptName" type="text" /> <br />
+
+        <label asp-for="Capacity">Capacity: </label>
+        <input asp-for="Capacity" type="text" /> <br />
+
+        <input type="submit" class="btn btn-danger" value="Edit" />
+    </form>
+
+</body>
+</html>
+

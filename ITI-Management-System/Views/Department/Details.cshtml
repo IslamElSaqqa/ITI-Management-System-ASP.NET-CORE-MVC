@@ -1,0 +1,24 @@
+﻿@using ITIEntities
+@model Department
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Details</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="alert alert-danger">
+            @Model.DeptId - @Model.DeptName - @Model.Capacity
+    </div>
+
+
+
+
+</body>
+</html>
