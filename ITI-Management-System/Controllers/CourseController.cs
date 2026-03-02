@@ -1,6 +1,7 @@
 ﻿using ITI_Management_System.ViewModels;
-using ITIEntities;
+using ITIEntities.Models;
 using ITIEntities.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITI_Management_System.Controllers
@@ -13,6 +14,9 @@ namespace ITI_Management_System.Controllers
         {
             courseRepo = _courseRepo;
         }
+
+        [Authorize(Roles = "Admin, Student")]
+
         public IActionResult Index() {
 
             var model = courseRepo.GetAll();
@@ -20,7 +24,7 @@ namespace ITI_Management_System.Controllers
             return View(model);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public IActionResult CourseDetails(int id)
         {
             var course = courseRepo.GetById(id);
@@ -47,12 +51,14 @@ namespace ITI_Management_System.Controllers
 
         // On Any Method not Post
         // Get or Any Method But not POST
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Create(Course course)
         {
@@ -60,7 +66,7 @@ namespace ITI_Management_System.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,6 +80,7 @@ namespace ITI_Management_System.Controllers
 
 
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Edit(Course course, int id)
         {
@@ -82,7 +89,7 @@ namespace ITI_Management_System.Controllers
             return RedirectToAction(nameof(Index));
 
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -96,6 +103,7 @@ namespace ITI_Management_System.Controllers
 
 
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Delete(Course course, int id)
         {

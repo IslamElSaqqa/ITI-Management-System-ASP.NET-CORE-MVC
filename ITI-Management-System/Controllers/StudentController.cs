@@ -1,9 +1,12 @@
 ﻿using ITIEntities;
+using ITIEntities.Models;
 using ITIEntities.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITI_Management_System.Controllers
 {
+    [Authorize (Roles = "Admin")]
     public class StudentController: Controller
     {
 

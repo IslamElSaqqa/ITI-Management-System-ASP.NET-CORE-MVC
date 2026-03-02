@@ -1,8 +1,137 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using System.Security.Claims
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">ITI Management</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+
+                @* User is logged in *@
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- Username with icon -->
+                    <li class="nav-item d-flex align-items-center me-3">
+                        <i class="bi bi-person-circle me-1"></i> @User.Identity.Name
+                    </li>
+
+                    <!-- Logout -->
+                    <li class="nav-item">
+                        <form asp-action="Logout" asp-controller="Account" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-link nav-link p-0">Logout</button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <!-- Login & Register links -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Register", "Account")">Register</a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+    <!-- Hero Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">Welcome to ITI Management System</h1>
+        <p class="lead">
+            An intuitive platform for managing students, courses, and academic data efficiently.
+            Designed for ITI administrators, instructors, and students.
+        </p>
+        @if (User.Identity.IsAuthenticated)
+
+        {
+            <h3 class="display-4 fw-bold">Welcome @User.Identity.Name</h3>
+            
+        }
+        else
+        {
+            <a href="@Url.Action("Register", "Account")" class="btn btn-dark btn-lg rounded-3 me-2">Get Started</a>
+
+            <a href="@Url.Action("Login", "Account")" class="btn btn-outline-dark btn-lg rounded-3">Login</a>
+        }
+    </div>
+
+    <!-- About Section -->
+    <div class="row text-center mb-5">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <i class="bi bi-people-fill fs-1 mb-3"></i>
+                    <h5 class="card-title fw-bold">Student Management</h5>
+                    <p class="card-text">
+                        Keep track of student information including registration, age, department, and academic progress.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <i class="bi bi-journal-bookmark-fill fs-1 mb-3"></i>
+                    <h5 class="card-title fw-bold">Course Management</h5>
+                    <p class="card-text">
+                        Add, update, and manage courses. Assign students to courses and track grades easily.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <i class="bi bi-shield-lock-fill fs-1 mb-3"></i>
+                    <h5 class="card-title fw-bold">Role-Based Security</h5>
+                    <p class="card-text">
+                        Secure access using roles: Admins, Students, and Instructors. Only authorized users can modify data.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="mb-5">
+        <h2 class="text-center mb-4 fw-bold">Key Features</h2>
+        <ul class="list-group list-group-flush mx-auto" style="max-width: 800px;">
+            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Manage students, courses, and departments efficiently.</li>
+            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Assign students to courses and track their grades.</li>
+            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Role-based authorization ensures secure access.</li>
+            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Responsive, user-friendly interface built with Bootstrap 5.</li>
+            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>Easy integration for ITI administration and academic staff.</li>
+        </ul>
+    </div>
+
+    @if (!(User.Identity.IsAuthenticated))
+    {
+        <!-- Call to Action -->
+        <div class="text-center mb-5">
+            <h3 class="fw-bold mb-3">Ready to get started?</h3>
+            <a href="@Url.Action("Register", "Account")" class="btn btn-dark btn-lg rounded-3 me-2">Register Now</a>
+            <a href="@Url.Action("Login", "Account")" class="btn btn-outline-dark btn-lg rounded-3">Login</a>
+        </div>
+    }
+
 </div>
+
+@section Scripts {
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+}

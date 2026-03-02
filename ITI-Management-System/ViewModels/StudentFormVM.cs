@@ -1,4 +1,4 @@
-﻿using ITIEntities;
+﻿using ITIEntities.Models;
 
 public class StudentFormVM
 {

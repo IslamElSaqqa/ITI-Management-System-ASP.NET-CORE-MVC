@@ -1,16 +1,9 @@
-﻿@using ITIEntities
+﻿@using ITIEntities.Models
 @model IEnumerable<Department> // Avoids Adding data to that nodel
     @{
-        Layout = null;
+        Layout = "_Layout";
     }
 
-<!DOCTYPE >
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Index</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-
-    </head>
     <body>
         <table class="table table-bordered table-hover">
             <tr>
@@ -33,26 +26,30 @@
                       <td>@item.DeptId</td>
                       <td>@item.DeptName </td>
                        <td>@item.Capacity</td>
-                       <td>
-                        <a asp-action="details" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-info">Details</a>
-                        <a asp-action="Edit" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Edit</a>
-                        <a asp-action="delete" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Delete</a>
-                        <a asp-action="showcourses" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Show Courses</a>
-                        <a asp-action="managedeptcourse" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Update Courses</a>
+                    @if (User.IsInRole("Admin"))
+                        {
+                            <td>
+                                <a asp-action="details" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-info">Details</a>
+                                <a asp-action="Edit" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Edit</a>
+                                <a asp-action="delete" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Delete</a>
+                                <a asp-action="showcourses" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Show Courses</a>
+                                <a asp-action="managedeptcourse" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Update Courses</a>
 
-                    </td>
+                            </td>
+                        }
                 </tr>    
             
             }
          }
         </table>
-
-    <div text-center mt-4>
-            <a asp-action="create" class="btn btn-primary">Create Deparment</a>
+    
+        
+    @if(User.IsInRole("Admin")){
+        <div text-center mt-4>
+                <a asp-action="create" class="btn btn-primary">Create Deparment</a>
         </div>
-
+    }
     </body>
-</html>
 
 
 

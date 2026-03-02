@@ -1,0 +1,34 @@
+﻿@using ITI_Management_System.ViewModels
+@model List<StudentDegreeDisplayVM>
+
+<h2>Students Degrees</h2>
+
+<table border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Course Name</th>
+            <th>Degree</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudentName</td>
+                <td>@item.CourseName</td>
+                <td>@item.Degree</td>
+                <td>
+                    <a asp-action="UpdateDegree"
+                       asp-route-studentId="@item.StudentId"
+                       asp-route-courseId="@item.CourseId"
+                       class="btn btn-primary">
+                        Update Degree
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

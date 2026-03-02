@@ -1,5 +1,7 @@
 using ITIEntities;
+using ITIEntities.Models;
 using ITIEntities.Repo;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITI_Management_System
@@ -9,9 +11,20 @@ namespace ITI_Management_System
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                });
+
+            builder.Services.AddAuthorization();
+
+          
 
             builder.Services.AddScoped<ITEntityRepo<Student>, StudentRepo>();
             builder.Services.AddScoped<ITEntityRepo<Department>, DepartmentRepo>();
@@ -35,6 +48,8 @@ namespace ITI_Management_System
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

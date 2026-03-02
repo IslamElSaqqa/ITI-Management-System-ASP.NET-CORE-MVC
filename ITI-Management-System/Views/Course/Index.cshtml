@@ -1,17 +1,11 @@
 ﻿@using ITIEntities
+@using ITIEntities.Models
 
 @model IEnumerable<Course>
     @{
-        Layout = null;
+        Layout = "_Layout";
     }
 
-<!DOCTYPE >
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Index</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-
-    </head>
     <body>
         
         <table class="table table-bordered table-hover">
@@ -35,22 +29,29 @@
                       <td>@item.CrsId</td>
                       <td>@item.CrsName </td>
                        <td>@item.Duration</td>
-                       <td>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>
+                           
                             <a asp-action="CourseDetails" asp-controller="course" asp-route-id="@item.CrsId" class="btn btn-info">Details</a>
                             <a asp-action="Edit" asp-controller="course" asp-route-id="@item.CrsId" class="btn btn-danger">Edit</a>
                             <a asp-action="Delete" asp-controller="course" asp-route-id="@item.CrsId" class="btn btn-danger">Delete</a>
                         </td>
+                        }
                 </tr>    
             
             }
          }
         </table>
-   
-    <div class="text-center mt-4">
-        <a asp-action="Create" class="btn btn-primary btn-lg">Create Course</a>
-    </div>
-</body>
-</html>
+    @if (User.IsInRole("Admin"))
+        {
+            <div class="text-center mt-4">
+                <a asp-action="Create" class="btn btn-primary btn-lg">Create Course</a>
+            </div>
+        }
+    </body>
+
 
 
 

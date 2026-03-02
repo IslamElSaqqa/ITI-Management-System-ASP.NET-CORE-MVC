@@ -1,11 +1,14 @@
 ﻿using ITIEntities;
+using ITIEntities.Models;
 using ITIEntities.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ITI_Management_System.Controllers
 {
+    [Authorize (Roles = "Admin")]
     public class DepartmentController : Controller
     {
 
