@@ -1,0 +1,75 @@
+﻿@model StudentFormVM
+
+@{
+    ViewData["Title"] = "Create Student";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-lg">
+                <div class="card-body">
+
+                    <h4 class="card-title text-primary mb-4">
+                        Create New Student
+                    </h4>
+
+                    <form asp-action="Create" method="post">
+
+                        <!-- Student Name -->
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <!-- Student Age -->
+                        <div class="mb-3">
+                            <label asp-for="Age" class="form-label"></label>
+                            <input asp-for="Age" type="number" class="form-control" />
+                            <span asp-validation-for="Age" class="text-danger"></span>
+                        </div>
+
+                        <!-- Department Dropdown -->
+                        <div class="mb-3">
+                            <label class="form-label">Select Department</label>
+                            <select asp-for="DeptId" class="form-select">
+                                <option value="">-- Select Department --</option>
+                                @foreach (var dept in Model.AllDepartments)
+                                {
+                                    <option value="@dept.DeptId">@dept.DeptName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Courses Multi-Select -->
+                        <div class="mb-3">
+                            <label class="form-label">Select Courses</label>
+                            <select asp-for="SelectedCourseIds" class="form-select" multiple>
+                                @foreach (var crs in Model.AllCourses)
+                                {
+                                    <option value="@crs.CrsId">@crs.CrsName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                Save Student Info
+                            </button>
+
+                            <a asp-action="Index" class="btn btn-secondary">
+                                Cancel
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

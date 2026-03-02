@@ -1,7 +1,7 @@
-﻿@model ITIEntities.Department
+﻿@model ITIEntities.Course
 
 @{
-    ViewData["Title"] = "Create Department";
+    ViewData["Title"] = "Create Course";
 }
 
 <div class="container mt-5">
@@ -12,36 +12,36 @@
                 <div class="card-body">
 
                     <h4 class="card-title text-primary mb-4">
-                        Create New Department
+                        Create New Course
                     </h4>
 
                     <form asp-action="Create" method="post">
 
-                        <!-- Dept ID -->
+                        <!-- Course ID -->
                         <div class="mb-3">
-                            <label asp-for="DeptId" class="form-label"></label>
-                            <input asp-for="DeptId" class="form-control" />
-                            <span asp-validation-for="DeptId" class="text-danger"></span>
+                            <label asp-for="CrsId" class="form-label"></label>
+                            <input asp-for="CrsId" class="form-control" />
+                            <span asp-validation-for="CrsId" class="text-danger"></span>
                         </div>
 
-                        <!-- Dept Name -->
+                        <!-- Course Name -->
                         <div class="mb-3">
-                            <label asp-for="DeptName" class="form-label"></label>
-                            <input asp-for="DeptName" class="form-control" />
-                            <span asp-validation-for="DeptName" class="text-danger"></span>
+                            <label asp-for="CrsName" class="form-label"></label>
+                            <input asp-for="CrsName" class="form-control" />
+                            <span asp-validation-for="CrsName" class="text-danger"></span>
                         </div>
 
-                        <!-- Capacity -->
+                        <!-- Duration -->
                         <div class="mb-3">
-                            <label asp-for="Capacity" class="form-label"></label>
-                            <input asp-for="Capacity" type="number" class="form-control" />
-                            <span asp-validation-for="Capacity" class="text-danger"></span>
+                            <label asp-for="Duration" class="form-label"></label>
+                            <input asp-for="Duration" type="number" class="form-control" />
+                            <span asp-validation-for="Duration" class="text-danger"></span>
                         </div>
 
                         <!-- Buttons -->
                         <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="btn btn-primary">
-                                Save Department
+                                Save Course
                             </button>
 
                             <a asp-action="Index" class="btn btn-secondary">

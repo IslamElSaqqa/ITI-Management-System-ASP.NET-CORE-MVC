@@ -1,7 +1,7 @@
-﻿@model ITIEntities.Department
+﻿@model ITIEntities.Course
 
 @{
-    ViewData["Title"] = "Edit Deparmtent";
+    ViewData["Title"] = "Edit Course";
 }
 
 <div class="container mt-5">
@@ -12,28 +12,28 @@
                 <div class="card-body">
 
                     <h4 class="card-title text-primary mb-4">
-                        Edit Deparment
+                        Edit Course
                     </h4>
 
                     <form asp-action="Edit" method="post">
-                        <!-- Department Name -->
+                        <!-- Course Name -->
                         <div class="mb-3">
-                            <label asp-for="DeptName" class="form-label"></label>
-                            <input asp-for="DeptName" class="form-control" />
-                            <span asp-validation-for="DeptName" class="text-danger"></span>
+                            <label asp-for="CrsName" class="form-label"></label>
+                            <input asp-for="CrsName" class="form-control" />
+                            <span asp-validation-for="CrsName" class="text-danger"></span>
                         </div>
 
-                        <!-- Capacity -->
+                        <!-- Duration -->
                         <div class="mb-3">
-                            <label asp-for="Capacity" class="form-label"></label>
-                            <input asp-for="Capacity" type="number" class="form-control" />
-                            <span asp-validation-for="Capacity" class="text-danger"></span>
+                            <label asp-for="Duration" class="form-label"></label>
+                            <input asp-for="Duration" type="number" class="form-control" />
+                            <span asp-validation-for="Duration" class="text-danger"></span>
                         </div>
 
                         <!-- Buttons -->
                         <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="btn btn-primary">
-                                Edit Department
+                                Edit Course
                             </button>
 
                             <a asp-action="Index" class="btn btn-secondary">

@@ -12,7 +12,6 @@
 
     </head>
     <body>
-        <a asp-action="create" class="btn btn-info">Create</a>
         <table class="table table-bordered table-hover">
             <tr>
                 <th>Department Id</th>
@@ -35,17 +34,22 @@
                       <td>@item.DeptName </td>
                        <td>@item.Capacity</td>
                        <td>
-                           <a asp-action="details" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-info">Details</a>
+                        <a asp-action="details" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-info">Details</a>
                         <a asp-action="Edit" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Edit</a>
-                       </td>
+                        <a asp-action="delete" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Delete</a>
+                        <a asp-action="showcourses" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Show Courses</a>
+                        <a asp-action="managedeptcourse" asp-controller="department" asp-route-id="@item.DeptId" class="btn btn-danger">Update Courses</a>
+
+                    </td>
                 </tr>    
             
             }
          }
         </table>
 
-
-
+    <div text-center mt-4>
+            <a asp-action="create" class="btn btn-primary">Create Deparment</a>
+        </div>
 
     </body>
 </html>

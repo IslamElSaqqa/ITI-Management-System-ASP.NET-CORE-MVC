@@ -17,7 +17,5 @@ namespace ITIEntities
         public virtual List<Department> Departments { get; set; }
 
         public virtual List<StudentCourse> CourseStudents { get; set; }
-
-
     }
 }

@@ -1,0 +1,72 @@
+﻿@using ITIEntities
+@model Department
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Department Courses</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+
+                <div class="card shadow-lg border-0">
+
+                    <!-- Header -->
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">
+                            Courses of @Model.DeptName Department
+                        </h4>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="card-body">
+
+                        @if (Model.Courses == null || !Model.Courses.Any())
+                        {
+                            <div class="alert alert-warning text-center">
+                                No courses available in this department.
+                            </div>
+                        }
+                        else
+                        {
+                            <ul class="list-group list-group-flush">
+                                @foreach (var item in Model.Courses)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        @item.CrsName
+                                        <span class="badge bg-secondary">
+                                            @item.Duration hrs
+                                        </span>
+                                    </li>
+                                }
+                            </ul>
+                        }
+
+                        <!-- Back Button -->
+                        <div class="d-grid mt-4">
+                            <a asp-action="Index" asp-controller="Department"
+                               class="btn btn-outline-primary">
+                                Back to Departments
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

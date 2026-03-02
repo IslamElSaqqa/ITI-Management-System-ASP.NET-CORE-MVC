@@ -15,7 +15,13 @@ namespace ITIEntities
         public DbSet<Course> Courses { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
 
+        public ITIContext()
+        { }
 
+        public ITIContext(DbContextOptions options):base(options)
+        { 
+        
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=ITI46MVC;Integrated Security=True; TrustServerCertificate=True");

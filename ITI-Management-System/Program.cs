@@ -1,3 +1,7 @@
+using ITIEntities;
+using ITIEntities.Repo;
+using Microsoft.EntityFrameworkCore;
+
 namespace ITI_Management_System
 {
     public class Program
@@ -9,7 +13,15 @@ namespace ITI_Management_System
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddScoped<ITEntityRepo<Student>, StudentRepo>();
+            builder.Services.AddScoped<ITEntityRepo<Department>, DepartmentRepo>();
+            builder.Services.AddScoped<ITEntityRepo<Course>, CourseRepo>();
+            builder.Services.AddDbContext<ITIContext>(s=>
+            {
+                DbContextOptionsBuilder dbContextOptionsBuilder = s.UseSqlServer(builder.Configuration.GetConnectionString("con1"));
+            });
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

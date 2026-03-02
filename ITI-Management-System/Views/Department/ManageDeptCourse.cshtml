@@ -1,0 +1,110 @@
+﻿@using ITIEntities
+@model Department
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Manage Department Courses</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <div class="card shadow-lg border-0">
+
+                    <!-- Header -->
+                    <div class="card-header bg-dark text-white text-center">
+                        <h4 class="mb-0">
+                            Manage Courses for @Model.DeptName Department
+                        </h4>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="card-body">
+
+                        <form method="post">
+
+                            <input type="hidden" name="id" value="@Model.DeptId" />
+
+                            <div class="row">
+
+                                <!-- Courses To Remove -->
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label fw-bold text-danger">
+                                        Courses To Remove
+                                    </label>
+
+                                    <select name="coursestoremove"
+                                            class="form-select shadow-sm"
+                                            multiple
+                                            size="10">
+                                        @foreach (var item in Model.Courses)
+                                        {
+                                            <option value="@item.CrsId">
+                                                @item.CrsName
+                                            </option>
+                                        }
+                                    </select>
+
+                                    <small class="text-muted">
+                                        Hold Ctrl to select multiple courses
+                                    </small>
+                                </div>
+
+                                <!-- Courses To Add -->
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label fw-bold text-success">
+                                        Courses To Add
+                                    </label>
+
+                                    <select name="coursestoadd"
+                                            class="form-select shadow-sm"
+                                            multiple
+                                            size="10">
+                                        @foreach (var item in ViewBag.coursesNotInDept)
+                                        {
+                                            <option value="@item.CrsId">
+                                                @item.CrsName
+                                            </option>
+                                        }
+                                    </select>
+
+                                    <small class="text-muted">
+                                        Hold Ctrl to select multiple courses
+                                    </small>
+                                </div>
+
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="d-grid gap-2 mt-3">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    Update Courses
+                                </button>
+
+                                <a asp-action="Index"
+                                   asp-controller="Department"
+                                   class="btn btn-outline-secondary">
+                                    Back to Departments
+                                </a>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

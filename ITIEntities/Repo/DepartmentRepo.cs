@@ -9,7 +9,12 @@ namespace ITIEntities.Repo
 {
     public class DepartmentRepo : ITEntityRepo<Department>
     {
-        ITIContext context = new ITIContext();
+        ITIContext context;
+
+        public DepartmentRepo(ITIContext iticontext)
+        {
+            context = iticontext;
+        }
         public void Add(Department department)
         {
             context.Departments.Add(department);
@@ -26,6 +31,7 @@ namespace ITIEntities.Repo
             return context.Departments.Find(id);
         }
 
+    
         public void Update(Department department)
         {
             context.Departments.Update(department);

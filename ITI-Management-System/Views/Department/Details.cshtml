@@ -1,24 +1,37 @@
-﻿@using ITIEntities
-@model Department
+﻿@using ITI_Management_System.ViewModels
+@model ITIEntities.Department
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Department Details";
 }
 
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Details</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<div class="container mt-5 d-flex justify-content-center">
 
-</head>
-<body>
-    <div class="alert alert-danger">
-            @Model.DeptId - @Model.DeptName - @Model.Capacity
+    <div class="card shadow-lg" style="width: 22rem;">
+        <div class="card-body">
+            <h5 class="card-title text-primary fw-bold">
+               DeptID: @Model.DeptId
+            </h5>
+
+            <h5 class="card-title text-primary fw-bold">
+                DeptName: @Model.DeptName
+            </h5>
+
+
+            <h6 class="card-subtitle mb-3 text-muted">
+                Capacity: @Model.Capacity students
+            </h6>
+
+            <hr />
+
+            <!-- Buttons -->
+            <div class="d-grid gap-2">
+                <a asp-action="Index" class="btn btn-secondary">
+                    Back to Departments List
+                </a>
+            </div>
+
+        </div>
     </div>
 
-
-
-
-</body>
-</html>
+</div>

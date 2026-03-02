@@ -1,0 +1,57 @@
+﻿@using ITI_Management_System.ViewModels
+@model ITIEntities.Student
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<div class="container mt-5 d-flex justify-content-center">
+
+    <div class="card shadow-lg" style="width: 22rem;">
+        <div class="card-body">
+
+            <!-- Student Info -->
+            <h5 class="card-title text-primary fw-bold">
+                Student ID: @Model.ID
+            </h5>
+
+            <h5 class="card-title text-primary fw-bold">
+                Student Name: @Model.Name
+            </h5>
+
+            <h6 class="card-subtitle mb-3 text-muted">
+                Age: @Model.Age
+            </h6>
+
+            <!-- Courses -->
+            <p class="fw-bold mb-1">Courses:</p>
+
+            @if (Model.StudentCourses != null && Model.StudentCourses.Any())
+            {
+                <ul class="list-group list-group-flush mb-3">
+                    @foreach (var sc in Model.StudentCourses)
+                    {
+                        <li class="list-group-item">
+                            @($"{sc.Course.CrsName} - Degree: {sc.Degree}")
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">No Courses Assigned</p>
+            }
+
+            <hr />
+
+            <!-- Buttons -->
+            <div class="d-grid gap-2">
+                <a asp-action="Index" class="btn btn-secondary">
+                    Back to Students List
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>

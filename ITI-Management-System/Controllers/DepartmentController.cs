@@ -1,6 +1,7 @@
 ﻿using ITIEntities;
 using ITIEntities.Repo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ITI_Management_System.Controllers
@@ -9,40 +10,64 @@ namespace ITI_Management_System.Controllers
     {
 
         // Index should Talk to DB using IEntity Repo
-        ITEntityRepo<Department> deptRepo = new DepartmentRepo();
+        ITEntityRepo<Department> deptRepo;
+        ITIContext context;
+
+        public DepartmentController(ITEntityRepo<Department> _deptRepo, ITIContext _context)
+        {
+            deptRepo = _deptRepo;
+            context = _context;
+        }
         public IActionResult Index()
         {
             var model = deptRepo.GetAll();
             return View(model);
         }
 
+        public IActionResult ShowCourses(int id)
+        {
+            var model = context.Departments.Include(d => d.Courses).FirstOrDefault(d => d.DeptId == id);
+            return View(model);
+        }
+        public IActionResult ManageDeptCourse(int id)
+        {
+            var model = context.Departments.Include(d => d.Courses).FirstOrDefault(d => d.DeptId == id);
+            var allcourses = context.Courses.ToList();
+            var coursesNotInDept = allcourses.Except(model.Courses).ToList();
+            ViewBag.coursesNotInDept = coursesNotInDept;
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult ManageDeptCourse(int id, int[] coursestoremove, int[] coursestoadd)
+        {
+            var dept = context.Departments.Include(d => d.Courses).FirstOrDefault(d => d.DeptId == id);
+            foreach (var courseId in coursestoremove)
+            {
+                Course c = dept.Courses.FirstOrDefault(c => c.CrsId == courseId);
+                dept.Courses.Remove(c);
+            }
+            foreach (var item in coursestoadd)
+            {
+                Course c = context.Courses.FirstOrDefault(c => c.CrsId == item);
+                dept.Courses.Add(c);
+            }
+
+            context.SaveChanges();
+            return RedirectToAction(nameof(ManageDeptCourse), new { id = id });
+        }
+
         public IActionResult Details(int? id) {
 
-            if (id == null) // No Id
+            if (id == null) 
                 return BadRequest();
             
-            var model = deptRepo.GetById(id.Value); // because id accepts null so we need to get the value from the id obj
+            var model = deptRepo.GetById(id.Value); 
             if (model == null)
                 return NotFound();
             return View(model);
-            // If we want to return JSON
-            // return Json(model)
-
-            // If we want to return String
-            // return Content("Welcome to Details")
-            // or new ContentResult({content = "Welcome to details"})
-
-            // If we want to return Image or file
-            // return File(path, extension, NameOfFileOnClient)
-
-            //For Redirection
-             //return Redirect() or RedirectPermenant
-             //params = new {z =10, y = 10} => multiple params
-             // return RedirectToAction(action, controller, params)
-
-
+   
         }
-        // Get or Any Method But not POST
+      
         public IActionResult Create() {
 
             return View();
@@ -76,6 +101,28 @@ namespace ITI_Management_System.Controllers
             deptRepo.Update(dept);
             return RedirectToAction(nameof(Index));
         
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+                return BadRequest();
+            var model = deptRepo.GetById(id.Value);
+
+            if (model == null)
+                return NotFound();
+
+            return View(model);
+
+
+        }
+        [HttpPost]
+        public IActionResult Delete(Department dept, int id)
+        {
+            dept.DeptId = id;
+            deptRepo.Delete(id);
+            return RedirectToAction(nameof(Index));
+
         }
 
     }
