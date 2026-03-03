@@ -43,12 +43,15 @@ public IActionResult Register()
             .ToList();
         ViewBag.Departments = new SelectList(departments, "DeptId", "DeptName", model.DeptId);
 
-        if (!ModelState.IsValid)
+        if (!ModelState.IsValid) 
             return View(model);
 
-        if (_context.Users.Any(u => u.Username == model.Username))
+        
+        if (_context.Users.Any(u =>
+            u.Username.ToLower() == model.Username.ToLower()))
         {
-            ModelState.AddModelError("", "Username already exists");
+            ModelState.AddModelError("Username",
+                "Username already exists"); 
             return View(model);
         }
 
@@ -86,7 +89,12 @@ public IActionResult Register()
     [HttpPost]
     public async Task<IActionResult> Login(LoginVM model)
     {
-        var user = _context.Users.FirstOrDefault(u => u.Username == model.Username);
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var user = _context.Users
+            .FirstOrDefault(u =>
+                u.Username.ToLower() == model.Username.ToLower());
 
         if (user == null || !BCrypt.Net.BCrypt
             .Verify(model.Password, user.PasswordHash))
@@ -102,6 +110,13 @@ public IActionResult Register()
             new Claim("UserId", user.ID.ToString()),
             new Claim("StudentId", user.StudentId?.ToString() ?? "")
         };
+
+        // Add StudentId only if exists
+        if (user.StudentId.HasValue)
+        {
+            claims.Add(new Claim("StudentId",
+                user.StudentId.Value.ToString()));
+        }
 
         var identity = new ClaimsIdentity(claims,
             CookieAuthenticationDefaults.AuthenticationScheme);

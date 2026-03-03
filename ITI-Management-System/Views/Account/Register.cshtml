@@ -8,6 +8,10 @@
     <div class="card-body p-4">
         <form asp-action="Register" method="post">
 
+            <!-- Register Validation Summary -->
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3"></div> 
+
             <div class="mb-3">
                 <label asp-for="Username" class="form-label fw-semibold">Username</label>
                 <input asp-for="Username" class="form-control" placeholder="Enter username" />
